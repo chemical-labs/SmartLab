@@ -524,7 +524,6 @@ class Barcode extends Component{
     }
 
     scan(x){
-        AsyncStorage.getItem('localip').then(localip => {
             (async() => {
                 const decrypt = base64.decode(x)
                 const parse = JSON.parse(decrypt)
@@ -532,7 +531,6 @@ class Barcode extends Component{
                 if(parse.type_sensor == 'lock.png'){
                     axios.post('http://' + parse.machine + parse.url).then(data => {
                         if(data.status == 200){
-                            this.setState({ scan: false })
                             this.setState({ lock_delay: true })
                         }else{
                             this.setState({ error: true })
@@ -568,7 +566,6 @@ class Barcode extends Component{
                     })
                 }
             })()
-        })
     }
 
     render(){
